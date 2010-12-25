@@ -1,0 +1,62 @@
+<?php
+// $Id: 
+
+/**
+ * @file
+ * Implementation of hook_install().
+ */
+function btc_address_install() {
+  drupal_load('module', 'content');
+  content_notify('install', 'btc_address');
+
+  // the array below of default allowed protocols was taken from line six of modules/filter/filter.module from the filter_xss_bad_protocol function.
+  $allowed_prots = variable_get('filter_allowed_protocols', array('http', 'https', 'ftp', 'news', 'nntp', 'tel', 'telnet', 'mailto', 'irc', 'ssh', 'sftp', 'webcal', 'rtsp'));
+  if(!in_array('bitcoin', $allowed_prots)){
+    $allowed_prots[]='bitcoin';
+    variable_set('filter_allowed_protocols',$allowed_prots);
+  }
+
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function btc_address_uninstall() {
+  $allowed_prots = variable_get('filter_allowed_protocols',array());
+
+  if (!empty($allowed_prots) && in_array('bitcoin', $allowed_prots)){
+    foreach($allowed_prots AS $key => $value) {
+      if ($value == 'bitcoin') 
+        unset($allowed_prots[$key]);
+    }
+    variable_set('filter_allowed_protocols',$allowed_prots);
+  }
+
+  // done removing bitcoin from list of allowed protocols.
+  // this assumes that there aren't any other modules using 'bitcoin' as a URI installed.  For now, this will be the case, but eventually there may be other modules that use it.
+  // I'd like to get bitcoin in to the list of variables on line 6 of the filter.module file and remove all of this. 
+
+  drupal_load('module', 'content');
+  content_notify('uninstall', 'btc_address');
+}
+
+/**
+ * Implementation of hook_enable().
+ *
+ * Notify content module when this module is enabled.
+ */
+function btc_address_enable() {
+  drupal_load('module', 'content');
+  content_notify('enable', 'btc_address');
+}
+
+/**
+ * Implementation of hook_disable().
+ *
+ * Notify content module when this module is disabled.
+ */
+function btc_address_disable() {
+  drupal_load('module', 'content');
+  content_notify('disable', 'btc_address');
+}
+
