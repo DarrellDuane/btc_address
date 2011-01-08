@@ -1,4 +1,4 @@
-
+  $Id$
 Description
 -----------
 This module provides a Bitcoin Address field type for CCK.
@@ -10,11 +10,13 @@ Features:
 Prerequisites
 -------------
 * The btc_address.module requires the content.module and 
-libraries.module to be installed.
+  libraries.module to be installed.
 
-* The btc_address.module needs to have the Bitcoin-php library installed.
-  - Download the latest version from: https://github.com/mikegogulski/bitcoin-php
-  - Install bitcoin.inc and the incldues/ & tests/ directories into sites/all/libraries/bitcoin.
+* The btc_address.module needs to have the Bitcoin-PHP library installed.
+  - Make the sites/all/libraries directory if needed, cd to this directory.
+  - Do a git clone of this library by typing:  
+           git clone https://github.com/mikegogulski/bitcoin-php.git
+  - bitcoin.inc and the incldues/ & tests/ directories will now be in sites/all/libraries/bitcoin-php/src.
 
 * The Bitcoin libary needs to have bcmath enabled for PHP.  
   As root on your server, run:
