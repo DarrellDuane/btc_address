@@ -1,7 +1,8 @@
+; $Id$
 name = Bitcoin Address
 description = Defines a field to hold Bitcoin addresses and validate them.
 dependencies[] = content 
 dependencies[] = libraries
 package = CCK
 core = "6.x"
-version = "6.x-1.0"
+version = "6.x-1.1"

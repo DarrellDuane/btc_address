@@ -1,5 +1,6 @@
 <?php
-// $Id: btc_address.module
+// $Id$
+// btc_address.module
 
 /**
  * @file
@@ -7,7 +8,7 @@
  */
 
 
-btc_address_bitcoin_load_library();
+btc_address_bitcoin_php_load_library();
 
 /**
  * Loads bitcoin library if it's not loaded already.
@@ -15,18 +16,18 @@ btc_address_bitcoin_load_library();
  * @return
  *  TRUE if the bitcoin library is loaded, FALSE otherwise.
  */
-function btc_address_bitcoin_load_library() {
+function btc_address_bitcoin_php_load_library() {
 
   if (!class_exists('Bitcoin')) {
     // try using libraries module.
     if (module_exists('libraries')) {
-      $libraries_path= drupal_get_path('module','libraries');
+      $libraries_path= drupal_get_path('module', 'libraries');
       $libraries_include = $libraries_path . '/' . 'libraries.module';
       
       include_once($libraries_include);
 
       // Let's see if Bitcoin is really available from libraries.
-      $bitcoin_library = './'. libraries_get_path('bitcoin') .'/bitcoin.inc';
+      $bitcoin_library = './'. libraries_get_path('bitcoin-php') .'/src/bitcoin.inc';
       if (file_exists($bitcoin_library)) {
         include_once $bitcoin_library;
       }
@@ -188,10 +189,11 @@ function theme_btc_address_formatter_default($element) {
 
   // check to see if there is an allowed value for this element, if so display it, if not, display the safe version of it
   $address =  ($allowed =_btc_address_allowed_values($element)) ? $allowed : $element['#item']['safe'];
-  if(!empty($address)){
-    $retval = l($address,'bitcoin:' . $address,array('absolute' => TRUE) );
+  if (!empty($address)) {
+    $retval = l($address, 'bitcoin:' . $address, array('absolute' => TRUE) );
     return  $retval;
-  }else{
+  }
+  else{
     return '';
   }
 }

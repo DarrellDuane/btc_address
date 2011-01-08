@@ -1,5 +1,5 @@
 <?php
-// $Id: 
+// $Id$ 
 
 /**
  * @file
@@ -70,7 +70,7 @@ function btc_address_disable() {
  */
 function btc_address_requirements($phase) {
   if ($phase == "runtime") {
-    btc_address_bitcoin_load_library();
+    btc_address_bitcoin_php_load_library();
     $requirements['btc_address_bitcoin']['title'] = t('Bitcoin');
     if (class_exists('Bitcoin')) {
       $requirements['btc_address_bitcoin']['value'] = 'Bitcoin Library is installed correctly';
@@ -80,7 +80,7 @@ function btc_address_requirements($phase) {
       // Required library wasn't found.
       $requirements['btc_address_bitcoin']['value'] = t('Not found');
       // Provide a download link to the Bitcoin library.
-      $requirements['btc_address_bitcoin']['description'] = t('The <a href="@bitcoin">Bitcoin</a> library is missing or not installed correctly. <a href="@download">Download</a> and extract it to your <em>libraries</em> directory, renaming it to <em>bitcoin</em>.  See the README.txt file for more information at path/to/drupal@install.', array('@bitcoin' => 'http://www.nostate.com/3962/bitcoin-php-a-php-library-for-bitcoin/', '@download' => 'https://github.com/mikegogulski/bitcoin-php', '@install' => url(drupal_get_path('module', 'btc_address') . '/README.txt')));
+      $requirements['btc_address_bitcoin']['description'] = t('The <a href="@bitcoin">Bitcoin-PHP</a> library is missing or not installed correctly. <a href="@download">Download</a> and extract it to your <em>libraries</em> directory, renaming it to <em>bitcoin</em>.  See the README.txt file for more information at path/to/drupal@install.', array('@bitcoin' => 'http://www.nostate.com/3962/bitcoin-php-a-php-library-for-bitcoin/', '@download' => 'https://github.com/mikegogulski/bitcoin-php', '@install' => url(drupal_get_path('module', 'btc_address') . '/README.txt')));
       $requirements['btc_address_bitcoin']['severity'] = REQUIREMENT_ERROR;
     }
   } // done if phase = runtime
